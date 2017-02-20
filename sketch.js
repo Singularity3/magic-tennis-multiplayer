@@ -207,6 +207,7 @@ function ballPoked(data){
     circles[circ].y = 900-data.y;
     circles[circ].mx = -1*data.mx;
     circles[circ].my = -1*data.my;
+    circles[circ].curSpd += .5;
     circles[circ].isActive = true;
     circles[circ].score = 0;
 }
