@@ -50,10 +50,10 @@ function Ball(x, y, d, mx, my, id) {
     }
         if(this.score == 2){
             if(this.y <= 0) {
-                yourScore += this.d;
+                yourScore += parseInt(this.d);
             }
             else{
-                otherScore += this.d;
+                otherScore += parseInt(this.d);
             }
             this.score = 0;
         }
@@ -161,11 +161,13 @@ function draw() {
         text("solid", 10, 40);
     }
     if(counter <= 300) {
-        text("click, hold, and spin to create a ball", 200, 700);
-        text("click on a ball to deflect it away", 220, 750);
+        text("click, hold, and spin to create a ball", 270, 700);
+        text("click on a ball to deflect it away", 300, 750);
+        text("bigger balls mean bigger points", 295, 800);
+        
     }
-    text(yourScore, 1000, 870);
-    text(otherScore, 1000, 50);
+    text(yourScore, 1100, 870);
+    text(otherScore, 1100, 50);
 counter++;
     
     if(yourScore >= 2500){
