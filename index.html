@@ -1,0 +1,56 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+    <title>Magic Tennis</title>
+
+  <!-- to get rid of favicon request in console -->
+  <link rel="shortcut icon" href="">
+
+  <!-- P5 STUFF -->
+  <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
+  <script language="javascript" type="text/javascript" src="sketch.js"></script>
+
+  <!-- SOCKET STUFF -->
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+  <script type="text/javascript">
+    
+    /// SOCKET STUFF
+    var socket = io.connect();
+    
+    socket.on('connect', function() {
+      console.log("Connected");
+    });
+      
+      socket.on('userConn', function(id) {
+          socket.emit('otherConn', id);
+          start(1);
+      });
+      socket.on('start', function() {
+          start(2);
+      });
+      
+      socket.on('ballPoked', function(data) {
+          ballPoked(data);
+      });
+      socket.on('ballCreated', function(data) {
+          ballCreated(data);
+      });
+      socket.on('scoreReg', function(data){
+          scoreReg(data);
+      });
+          
+      
+
+
+  </script>
+
+  <style> body {padding: 0; margin: 0;}</style>
+</head>
+
+<body>
+</body>
+</html>
+
+
+
