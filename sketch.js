@@ -5,7 +5,7 @@ var colR = 0;
 var colG = 0;
 var colB = 0;
 var canCreate = false;
-var smoove = true;
+var drawMode = 1;
 var yourScore = 0;
 var otherScore = 0;
 var player = 0;
@@ -125,18 +125,28 @@ function setup() {
 }
 
 function draw() {
-    if(counter%80 == 0){
+    if(counter%100 == 0){
         colR = random(255);
         colG = random(255);
         colB = random(255);
     }
-    if(smoove){
-        background(colR, colG, colB, 20);
-    }
-    else {
-        if(counter%80 == 0) {
+    switch(drawMode){
+        case 1:
+            background(colR, colG, colB, 20);
+            fill(255, 255, 255);
+            text("fade", 10, 40);
+            break;
+        case 0:
+        if(counter%100 == 0) {
             background(colR, colG, colB);
+            fill(255, 255, 255);
+            text("solid", 10, 40);
         }
+            break;
+        case 2:
+            background(colR, colG, colB);
+            fill(255, 255, 255);
+            text("simple", 10, 40);
     }
     stroke(255-colR, 255-colG, 255-colB);
     strokeWeight(5);
@@ -153,12 +163,6 @@ function draw() {
     fill(255, 255, 255);
     if(player == 0) {
          text("waiting for player", 450, 200);
-    }
-    if(smoove) {
-        text("fade", 10, 40);
-    }
-    else{
-        text("solid", 10, 40);
     }
     if(counter <= 300) {
         text("click, hold, and spin to create a ball", 270, 700);
@@ -187,9 +191,10 @@ function mousePressed() {
         circles[i].poke();
     }
     if(dist(mouseX, mouseY, 50, 30)< 50) {
-        smoove = !smoove;
-        if(!smoove) {
-            counter += 78-(counter%80);
+        drawMode++;
+        if(drawMode > 2) {
+            drawMode = 0;
+            counter += 98-(counter%100);
         }
     }
     if(canCreate){
