@@ -11,6 +11,7 @@ var otherScore = 0;
 var player = 0;
 var gameEnd = false;
 var disconnect = false;
+var textCol = "#fff";
 
 function Ball(x, y, d, mx, my, id) {
     this.x = x;
@@ -135,20 +136,14 @@ function draw() {
     switch(drawMode){
         case 1:
             background(colR, colG, colB, 20);
-            fill(255, 255, 255);
-            text("fade", 10, 40);
             break;
         case 0:
         if(counter%100 == 0) {
             background(colR, colG, colB);
-            fill(255, 255, 255);
-            text("solid", 10, 40);
         }
             break;
         case 2:
             background(colR, colG, colB);
-            fill(255, 255, 255);
-            text("simple", 10, 40);
     }
     stroke(255-colR, 255-colG, 255-colB);
     strokeWeight(5);
@@ -166,39 +161,63 @@ function draw() {
         currEn[i].update();
         currEn[i].display();
     }
-    fill(255, 255, 255);
+    fill(textCol);
     if(player == 0) {
-         text("waiting for player", 450, 200);
+        textAlign(CENTER);
+        text("waiting for player", 600, 200);
     }
-    if(counter <= 400) {
-        text("click, hold, and spin to create a ball", 270, 700);
-        text("click on a ball to deflect it away", 300, 750);
-        text("bigger balls mean bigger points", 295, 800);
-        text("you can only do stuff on this side of the field", 200, 850);
+    textAlign(LEFT);
+    switch(drawMode){
+        case 1:
+            text("fade", 10, 40);
+            break;
+        case 0:
+            text("solid", 10, 40);
+            break;
+        case 2:
+            text("simple", 10, 40);
+            break;
+    }
+    if(counter < 500) {
+        textAlign(CENTER);
+        text("click, hold, and spin to create a ball", 600, 600);
+        text("click on a ball to deflect it away", 600, 650);
+        text("you can only do stuff on this side of the field", 600, 700);
+        text("get balls off the other side to score", 600, 750);
+        text("bigger balls mean bigger points", 600, 800);
+        
         
     }
-    text("you: " + yourScore, 1008, 880);
-    text("opponent: " + otherScore, 912, 40);
+    textAlign(RIGHT);
+    text("you: " + yourScore, 1175, 880);
+    text("opponent: " + otherScore, 1175, 40);
 counter++;
     
     if(yourScore >= 2500){
+        textAlign(CENTER);
         canCreate = false;
         gameEnd = true;
-        text("you win", 525, 450);
+        text("you win", 600, 450);
     }
     if(otherScore >= 2500){
+        textAlign(CENTER);
         canCreate = false;
         gameEnd = true;
-        text("you lose", 525, 450);
+        text("you lose", 600, 450);
     }
     
-    
+    if(((colR+colG+colB)/3)<160){
+        textCol = "#fff";
+    }
+    else {
+        textCol = "#000";
+    }
     if(disconnect){
         background(0,0,0);
         fill(255,255,255);
-        text("other client disconnected, please refresh", 250, 450);
+        textAlign(CENTER);
+        text("other client disconnected, please refresh", 600, 450);
     }
-    
 }
 function mousePressed() {
     for(var i=0; i<circles.length; i++){
