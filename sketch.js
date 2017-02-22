@@ -129,13 +129,12 @@ function setup() {
 
 function draw() {
     if(counter%100 == 0){
-        //do{
+        do{
         colR = random(255);
         colG = random(255);
         colB = random(255);
-        //}
-        //while((Math.abs(colR-128)>25)&&(Math.abs(colG-128)>25)&&(Math.abs(colB-128)>25));
-        //console.log(colR + "R " + colG + "G " + colB + "B " + ((Math.abs(colR-128)>25)&&(Math.abs(colG-128)>25)&&(Math.abs(colB-128)>25)));
+        }
+        while((Math.abs(colR-128)<25)&&(Math.abs(colG-128)<25)&&(Math.abs(colB-128)<25));
     }
     switch(drawMode){
         case 1:
