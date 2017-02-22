@@ -10,6 +10,7 @@ var yourScore = 0;
 var otherScore = 0;
 var player = 0;
 var gameEnd = false;
+var disconnect = false;
 
 function Ball(x, y, d, mx, my, id) {
     this.x = x;
@@ -122,6 +123,7 @@ function setup() {
     createCanvas(1200, 900);
     noStroke();
     textSize(40);
+    cursor(CROSS);
 }
 
 function draw() {
@@ -151,6 +153,10 @@ function draw() {
     stroke(255-colR, 255-colG, 255-colB);
     strokeWeight(5);
     line(0, 550, 1200, 550);
+    line(0, 350, 1200, 350);
+    strokeWeight(10);
+    noFill();
+    rect(0,0,1200,900);
     noStroke();
     for(var i=0; i<circles.length; i++){
         circles[i].update();
@@ -164,14 +170,15 @@ function draw() {
     if(player == 0) {
          text("waiting for player", 450, 200);
     }
-    if(counter <= 300) {
+    if(counter <= 400) {
         text("click, hold, and spin to create a ball", 270, 700);
         text("click on a ball to deflect it away", 300, 750);
         text("bigger balls mean bigger points", 295, 800);
+        text("you can only do stuff on this side of the field", 200, 850);
         
     }
-    text(yourScore, 1100, 870);
-    text(otherScore, 1100, 50);
+    text("you: " + yourScore, 1008, 880);
+    text("opponent: " + otherScore, 912, 40);
 counter++;
     
     if(yourScore >= 2500){
@@ -183,6 +190,13 @@ counter++;
         canCreate = false;
         gameEnd = true;
         text("you lose", 525, 450);
+    }
+    
+    
+    if(disconnect){
+        background(0,0,0);
+        fill(255,255,255);
+        text("other client disconnected, please refresh", 250, 450);
     }
     
 }
@@ -197,7 +211,7 @@ function mousePressed() {
             counter += 98-(counter%100);
         }
     }
-    if(canCreate){
+    if(canCreate && mouseY >= 550){
     currEn.push(new Energy(mouseX, mouseY));
     }
 }
@@ -233,3 +247,6 @@ function scoreReg(id) {
     circles[findID(id)].score++;
 }
         
+function disconnected() {
+    disconnect = true;
+}

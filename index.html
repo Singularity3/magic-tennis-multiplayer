@@ -5,6 +5,7 @@
 
   <!-- to get rid of favicon request in console -->
   <link rel="shortcut icon" href="">
+    <link rel="stylesheet" href="tennis.css">
 
   <!-- P5 STUFF -->
   <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
@@ -40,7 +41,9 @@
           scoreReg(data);
       });
           
-      
+      socket.on('otherDis', function(){
+          disconnected();
+      });
 
 
   </script>
